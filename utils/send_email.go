@@ -26,7 +26,7 @@ func SendEmail(
 		fromEmailAddress  string
 		fromEmailPassword string
 	}{
-		name:              "Tez",
+		name:              "CounselAI",
 		fromEmailAddress:  config.Smtp.Email,
 		fromEmailPassword: config.Smtp.Pass,
 	}

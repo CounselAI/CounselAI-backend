@@ -49,7 +49,7 @@ func (g *UserSvcImpl) SendOTP(c *gin.Context, req SendOTPReq) (utils.BaseRespons
 		_, err = g.otpVerificationGorm.CreateNewOTPVerification(c, otpVerification)
 
 		body := "Your OTP is " + otp
-		subject := "TEZ: your otp is " + otp
+		subject := "CounselAI: your otp is " + otp
 		toAddress := req.Email
 
 		go func() {
@@ -95,7 +95,7 @@ func (g *UserSvcImpl) SendOTP(c *gin.Context, req SendOTPReq) (utils.BaseRespons
 	}
 
 	body := "Your OTP is " + otp
-	subject := "TEZ: your otp is " + otp
+	subject := "CounselAI: your otp is " + otp
 	toAddress := req.Email
 
 	go func() {

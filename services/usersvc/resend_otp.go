@@ -70,7 +70,7 @@ func (g *UserSvcImpl) ResendOTP(c *gin.Context, req ResendOTPReq) (utils.BaseRes
 	_, err = g.otpVerificationGorm.CreateNewOTPVerification(c, otpVerification)
 
 	body := "Your OTP is " + otpValue
-	subject := "TEZ: your otp is " + otpValue
+	subject := "CounselAI: your otp is " + otpValue
 	toAddress := req.Email
 
 	go func() {

@@ -61,7 +61,7 @@ func (t *authSvcImpl) CreateToken(tokenAuthData models.AuthData) (*TokenDetails,
 
 	//set auth data
 	tokenAuthData.SessionPID = utils.UUIDWithPrefix(constants.Prefix.SESSION)
-	tokenAuthData.RegisteredClaims.Issuer = "tez"
+	tokenAuthData.RegisteredClaims.Issuer = "cat"
 	tokenAuthData.RegisteredClaims.IssuedAt = &jwt.NumericDate{time.Now()}
 
 	rtClaims := jwt.MapClaims{}
