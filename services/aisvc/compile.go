@@ -28,8 +28,21 @@ func (g *AiSvcImpl) Compile(c *gin.Context, reqBody CompileReq) (utils.BaseRespo
 		return baseRes, err
 	}
 
+	var coinsToDecrement int
+	coinsToDecrement = 1
+
+	switch reqBody.TypeOfAi {
+	case "nlp":
+		coinsToDecrement = 1
+	case "ai21":
+		coinsToDecrement = 2
+	case "chatgpt":
+		coinsToDecrement = 3
+	default:
+		coinsToDecrement = 1
+	}
 	// Check if all the ids and coins are in the correct format
-	if len(reqBody.IDs) > user.AvailableCoins {
+	if len(reqBody.IDs)*coinsToDecrement > user.AvailableCoins {
 		baseRes.Success = false
 		baseRes.StatusCode = http.StatusPaymentRequired
 		baseRes.Message = "Not enough coins"
@@ -54,7 +67,7 @@ func (g *AiSvcImpl) Compile(c *gin.Context, reqBody CompileReq) (utils.BaseRespo
 	}
 
 	// Update user's available coins
-	user.AvailableCoins = user.AvailableCoins - len(reqBody.IDs)
+	user.AvailableCoins = user.AvailableCoins - coinsToDecrement
 	user, err = g.usersGorm.UpdateUser(c, user)
 	if err != nil {
 		fmt.Println(err)
