@@ -23,4 +23,5 @@ func LoadConfigs() {
 	loadTokenConfig()
 	loadPasswordConfig()
 	loadFirebaseConfig()
+	loadCounselAiConfig()
 }

@@ -28,3 +28,11 @@ type VerifyOTPRes struct {
 	AccessToken  string `json:"access_token"`
 	RefreshToken string `json:"refresh_token"`
 }
+
+type GetProfileRes struct {
+	PID            string `json:"pid"`
+	Name           string `json:"name"`
+	Email          string `json:"email"`
+	AvailableCoins int    `json:"available_coins"`
+	MobileNumber   string `json:"mobile_number"`
+}

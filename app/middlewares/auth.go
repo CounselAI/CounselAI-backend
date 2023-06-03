@@ -1,4 +1,4 @@
-package app
+package middlewares
 
 import (
 	"github.com/BearTS/go-gin-monolith/constants"
@@ -27,7 +27,7 @@ func TokenAuth() gin.HandlerFunc {
 	}
 }
 
-func CheckIfCustomer() gin.HandlerFunc {
+func CheckIfUser() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		authData, err := utils.GetAuthData(ctx)
 		if err != nil {

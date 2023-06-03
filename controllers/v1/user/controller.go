@@ -85,3 +85,22 @@ func (h *userHandler) VerifyOTP(c *gin.Context) {
 
 	utils.ReturnJSONStruct(c, finalRes)
 }
+
+/* ------------------------------- GET PROFILE ------------------------------ */
+func (h *userHandler) GetProfile(c *gin.Context) {
+
+	baseRes, res, err := h.usersvc.GetProfile(c)
+	if err != nil {
+		merrors.InternalServer(c, baseRes.Message)
+		return
+	}
+
+	if baseRes.StatusCode != http.StatusOK {
+		merrors.InternalServer(c, baseRes.Message)
+		return
+	}
+
+	finalRes := getProfileTransformer(res)
+
+	utils.ReturnJSONStruct(c, finalRes)
+}

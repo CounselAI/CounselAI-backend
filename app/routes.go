@@ -3,10 +3,13 @@ package app
 import (
 	"time"
 
+	"github.com/BearTS/go-gin-monolith/app/middlewares"
+	"github.com/BearTS/go-gin-monolith/controllers/v1/ai"
 	"github.com/BearTS/go-gin-monolith/controllers/v1/user"
 	"github.com/BearTS/go-gin-monolith/database"
 	"github.com/BearTS/go-gin-monolith/dbops/gorm/otp_verifications"
 	"github.com/BearTS/go-gin-monolith/dbops/gorm/users"
+	"github.com/BearTS/go-gin-monolith/services/aisvc"
 	"github.com/BearTS/go-gin-monolith/services/authsvc"
 	"github.com/BearTS/go-gin-monolith/services/usersvc"
 	"github.com/gin-contrib/cors"
@@ -33,9 +36,11 @@ func MapURL() {
 
 	authsvc := authsvc.Handler()
 	userSvc := usersvc.Handler(usersGorm, otpVerificationsGorm, authsvc)
+	aiSvc := aisvc.Handler(usersGorm)
 
 	// Handlers
 	userHandler := user.Handler(userSvc)
+	aiHandler := ai.Handler(aiSvc)
 
 	v1 := router.Group("/v1")
 
@@ -49,5 +54,18 @@ func MapURL() {
 	err := router.Run()
 	if err != nil {
 		panic(err.Error() + "MapURL router not able to run")
+	}
+
+	users.Use(middlewares.CheckIfUser())
+	{
+		users.GET("/me", userHandler.GetProfile)
+	}
+
+	ai := v1.Group("/ai")
+	ai.Use(middlewares.CheckIfUser())
+	{
+		ai.POST("/query", aiHandler.Query)
+		ai.GET("/cases", aiHandler.GetCases)
+		ai.POST("/compile", aiHandler.Compile)
 	}
 }

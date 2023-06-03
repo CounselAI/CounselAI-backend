@@ -20,6 +20,8 @@ type Interface interface {
 	SendOTP(c *gin.Context, req SendOTPReq) (utils.BaseResponse, tables.Users, error)
 	VerifyOTP(c *gin.Context, req VerifyOTPReq) (utils.BaseResponse, tables.Users, error)
 	ResendOTP(c *gin.Context, req ResendOTPReq) (utils.BaseResponse, tables.Users, error)
+
+	GetProfile(c *gin.Context) (utils.BaseResponse, tables.Users, error)
 }
 
 func Handler(userGorm users.GormInterface, otpVerificationGorm otp_verifications.GormInterface, authSvc authsvc.Interface) Interface {
