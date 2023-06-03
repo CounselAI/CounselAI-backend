@@ -8,6 +8,7 @@ import (
 	"github.com/BearTS/go-gin-monolith/controllers/v1/user"
 	"github.com/BearTS/go-gin-monolith/database"
 	"github.com/BearTS/go-gin-monolith/dbops/gorm/otp_verifications"
+	"github.com/BearTS/go-gin-monolith/dbops/gorm/reports"
 	"github.com/BearTS/go-gin-monolith/dbops/gorm/users"
 	"github.com/BearTS/go-gin-monolith/services/aisvc"
 	"github.com/BearTS/go-gin-monolith/services/authsvc"
@@ -33,10 +34,11 @@ func MapURL() {
 	gormDB, _ := database.Connection()
 	usersGorm := users.Gorm(gormDB)
 	otpVerificationsGorm := otp_verifications.Gorm(gormDB)
+	reportsGorm := reports.Gorm(gormDB)
 
 	authsvc := authsvc.Handler()
 	userSvc := usersvc.Handler(usersGorm, otpVerificationsGorm, authsvc)
-	aiSvc := aisvc.Handler(usersGorm)
+	aiSvc := aisvc.Handler(usersGorm, reportsGorm)
 
 	// Handlers
 	userHandler := user.Handler(userSvc)
@@ -62,8 +64,11 @@ func MapURL() {
 		ai.POST("/query", aiHandler.Query)
 		ai.GET("/cases", aiHandler.GetCases)
 		ai.POST("/compile", aiHandler.Compile)
+
+		ai.POST("/upload-report", aiHandler.UploadReport)
+		ai.GET("/reports", aiHandler.GetAllReports)
 	}
-	
+
 	err := router.Run()
 	if err != nil {
 		panic(err.Error() + "MapURL router not able to run")

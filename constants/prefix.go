@@ -6,12 +6,14 @@ var Prefix = struct {
 	ADMIN              string
 	SESSION            string
 	SUBSCRIPTIONSPLANS string
-	TRANSACTIONS	   string
+	TRANSACTIONS       string
+	REPORT             string
 }{
 	USER:               "usr",
 	OTPVERIFICATION:    "otp",
 	ADMIN:              "adm",
 	SESSION:            "ses",
 	SUBSCRIPTIONSPLANS: "sub",
-	TRANSACTIONS: 	   "tra",
+	REPORT:             "rep",
+	TRANSACTIONS:       "tra",
 }

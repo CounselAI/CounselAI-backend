@@ -33,3 +33,15 @@ func (h *AiHandler) Query(c *gin.Context) {
 
 	utils.ReturnJSONStruct(c, baseRes)
 }
+
+func (h *AiHandler) UploadReport(c *gin.Context) {
+	baseRes, _ := h.aiSvc.UploadReport(c)
+
+	utils.ReturnJSONStruct(c, baseRes)
+}
+
+func (h *AiHandler) GetAllReports(c *gin.Context) {
+	baseRes, _ := h.aiSvc.GetAllReports(c)
+
+	utils.ReturnJSONStruct(c, baseRes)
+}
