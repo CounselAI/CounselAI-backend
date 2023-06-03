@@ -8,3 +8,7 @@ type CompileReq struct {
 type QueryReq struct {
 	Query string `json:"query"`
 }
+
+type ArchiveReportReq struct {
+	PID string `json:"pid"`
+}

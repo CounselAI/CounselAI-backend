@@ -22,3 +22,12 @@ func validateQueryReq(c *gin.Context) (aisvc.QueryReq, error) {
 
 	return reqBody, nil
 }
+
+func validareArchiveReport(c *gin.Context) (aisvc.ArchiveReportReq, error) {
+	var reqBody aisvc.ArchiveReportReq
+	if err := c.ShouldBindJSON(&reqBody); err != nil {
+		return reqBody, err
+	}
+
+	return reqBody, nil
+}

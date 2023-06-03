@@ -19,6 +19,7 @@ type Interface interface {
 
 	UploadReport(c *gin.Context) (utils.BaseResponse, error)
 	GetAllReports(c *gin.Context) (utils.BaseResponse, error)
+	ArchiveReport(c *gin.Context, reqBody ArchiveReportReq) (utils.BaseResponse, error)
 }
 
 func Handler(usersGorm users.GormInterface, reportsGorm reports.GormInterface) Interface {

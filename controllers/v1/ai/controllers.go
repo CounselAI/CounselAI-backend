@@ -45,3 +45,15 @@ func (h *AiHandler) GetAllReports(c *gin.Context) {
 
 	utils.ReturnJSONStruct(c, baseRes)
 }
+
+func (h *AiHandler) ArchiveReport(c *gin.Context) {
+	reqBody, err := validareArchiveReport(c)
+	if err != nil {
+		merrors.Validation(c, err.Error())
+		return
+	}
+
+	baseRes, _ := h.aiSvc.ArchiveReport(c, reqBody)
+
+	utils.ReturnJSONStruct(c, baseRes)
+}

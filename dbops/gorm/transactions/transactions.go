@@ -67,15 +67,13 @@ func (r *transactionsGormImpl) GetAllTransactionsByUserPID(ctx *gin.Context, use
 
 // Update
 func (r *transactionsGormImpl) UpdateTransaction(ctx *gin.Context, PID string, transactions tables.Transactions) (tables.Transactions, error) {
-	var transaction tables.Transactions
-
 	db := r.DB.Session(&gorm.Session{})
 
 	err := db.Where("transaction_pid = ?", PID).
 		Updates(transactions).Error
 	if err != nil {
-		return transaction, errors.Wrap(err, "[transactionsGormImpl][UpdateTransaction]")
+		return transactions, errors.Wrap(err, "[transactionsGormImpl][UpdateTransaction]")
 	}
 
-	return transaction, nil
+	return transactions, nil
 }
