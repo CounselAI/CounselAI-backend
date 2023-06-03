@@ -14,6 +14,8 @@ func AutoMigrate(db *gorm.DB) []Migrate {
 	var users tables.Users
 	var otpVerifications tables.OtpVerifications
 	var devices tables.Devices
+	var transactions tables.Transactions
+	var subscriptionPlans tables.SubscriptionPlans
 
 	usersM := Migrate{TableName: "users",
 		Run: func(d *gorm.DB) error { return db.AutoMigrate(&users) }}
@@ -21,10 +23,16 @@ func AutoMigrate(db *gorm.DB) []Migrate {
 		Run: func(d *gorm.DB) error { return db.AutoMigrate(&otpVerifications) }}
 	devicesM := Migrate{TableName: "devices",
 		Run: func(d *gorm.DB) error { return db.AutoMigrate(&devices) }}
+	transactionsM := Migrate{TableName: "transactions",
+		Run: func(d *gorm.DB) error { return db.AutoMigrate(&transactions) }}
+	subscriptionPlansM := Migrate{TableName: "subscription_plans",
+		Run: func(d *gorm.DB) error { return db.AutoMigrate(&subscriptionPlans) }}
 
 	return []Migrate{
 		usersM,
 		otpVerificationM,
 		devicesM,
+		transactionsM,
+		subscriptionPlansM,
 	}
 }
