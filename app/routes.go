@@ -51,11 +51,6 @@ func MapURL() {
 		users.POST("/resend-otp", userHandler.ResendOTP)
 	}
 
-	err := router.Run()
-	if err != nil {
-		panic(err.Error() + "MapURL router not able to run")
-	}
-
 	users.Use(middlewares.CheckIfUser())
 	{
 		users.GET("/me", userHandler.GetProfile)
@@ -68,4 +63,10 @@ func MapURL() {
 		ai.GET("/cases", aiHandler.GetCases)
 		ai.POST("/compile", aiHandler.Compile)
 	}
+	
+	err := router.Run()
+	if err != nil {
+		panic(err.Error() + "MapURL router not able to run")
+	}
+
 }
