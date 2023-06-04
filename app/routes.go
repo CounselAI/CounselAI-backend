@@ -67,6 +67,7 @@ func MapURL() {
 
 		ai.POST("/upload-report", aiHandler.UploadReport)
 		ai.GET("/reports", aiHandler.GetAllReports)
+		ai.PATCH("/archive-report", aiHandler.ArchiveReport)
 	}
 
 	err := router.Run()
