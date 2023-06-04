@@ -37,5 +37,21 @@ func Users(db *gorm.DB) error {
 		return err
 	}
 
+	// Seed 3
+	err = db.Create(&tables.Users{
+		PID:          "usr_1efec19b64bb42d68adb0852a628f809",
+		Email:        "harshaljanjani@gmail.com",
+		Name:         "Harshal Janjani",
+		MobileNumber: "7828310235",
+		IsDeleted:    false,
+		IsSandbox:    false,
+		CreatedAt:    time.Now(),
+		UpdatedAt:    time.Now(),
+	}).Error
+
+	if err != nil {
+		return err
+	}
+
 	return err
 }
